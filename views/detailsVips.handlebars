@@ -57,9 +57,9 @@
             {{#if chanteur }}
                 <b>Profession : </b>
                 {{#ifCond info.VIP_SEXE '==' 'M'}}
-                    chanteur ({{chanteur.CHANTEUR_SPECIALITE}})
+                    chanteur ({{chanteur.0.CHANTEUR_SPECIALITE}})
                 {{else}}
-                    chanteuse ({{chanteur.CHANTEUR_SPECIALITE}})
+                    chanteuse ({{chanteur.0.CHANTEUR_SPECIALITE}})
                 {{/ifCond}}
                 <br>
                 <b>Principal(aux) album(s) : </b>

@@ -101,31 +101,11 @@ a  {
 
 #photoProfilVip {
     height: 200px;
-    margin-left: 0px;
-}
-
-#detailsGenerauxVip {
-    display: inline-block;
-    width: 80%;
-    vertical-align: top;
-}
-
-#professions {
-    display: inline-block;
-    width: 80%;
-    vertical-align: top;
-}
-
-#detailsRelations {
-    display: inline-block;
-    width: 80%;
-    vertical-align: top;
+    float: left;
+    margin: 0 6px 0 0;
 }
 
 #descriptionVip {
-    display: inline-block;
-    width: 80%;
-    vertical-align: top;
     text-align: justify;
 }
 
