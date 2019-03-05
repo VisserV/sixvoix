@@ -71,6 +71,12 @@ module.exports.DetailStar = 	function(request, response){
             function (callback){
                 model.isChanteur(vipNum, function(err, chanteur){callback(null,chanteur) });
             } , //fin du callback7
+            function (callback){
+                model.isRealisateur(vipNum, function(err, realisateur){callback(null,realisateur) });
+            } , //fin du callback8
+            function (callback){
+                model.isCouturier(vipNum, function(err, couturier){callback(null,couturier) });
+            } , //fin du callback9
         ],
         function(err, result){
             if (err) {
@@ -86,6 +92,8 @@ module.exports.DetailStar = 	function(request, response){
             response.acteur = result[5]
             response.mannequin = result[6]
             response.chanteur = result[7];
+            response.realisateur = result[8];
+            response.couturier = result[9]
 
             response.title = response.info.VIP_PRENOM + ' ' + response.info.VIP_NOM;
 

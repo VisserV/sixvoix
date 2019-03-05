@@ -65,11 +65,17 @@ module.exports.photosVips = function(numStar, callback) {
 module.exports.liaisonVip = function(numStar, callback) {
     db.getConnection(function(err, connexion) {
         if (!err) {
-            let sql = "SELECT substring(VIP_NOM,1,1)AS lettreStar, v.VIP_NUMERO, VIP_NOM, VIP_PRENOM, VIP_TEXTE, PHOTO_NUMERO, PHOTO_ADRESSE, DATE_EVENEMENT, LIAISON_MOTIFFIN FROM vip v, liaison l, photo p";
-            sql = sql + "  WHERE v.VIP_NUMERO=l.VIP_VIP_NUMERO";
+            let sql = "(SELECT substring(VIP_NOM,1,1)AS lettreStar, v.VIP_NUMERO, VIP_NOM, VIP_PRENOM, VIP_TEXTE, PHOTO_NUMERO, PHOTO_ADRESSE, DATE_EVENEMENT, LIAISON_MOTIFFIN FROM vip v, liaison l, photo p";
+            sql = sql + " WHERE v.VIP_NUMERO=l.VIP_VIP_NUMERO";
             sql = sql + " AND l.VIP_NUMERO=" + [numStar];
             sql = sql + " AND v.VIP_NUMERO = p.VIP_NUMERO";
-            sql = sql + " AND PHOTO_NUMERO = 1";
+            sql = sql + " AND PHOTO_NUMERO = 1)";
+            sql = sql + " UNION";
+            sql = sql + " (SELECT substring(VIP_NOM,1,1)AS lettreStar, v.VIP_NUMERO, VIP_NOM, VIP_PRENOM, VIP_TEXTE, PHOTO_NUMERO, PHOTO_ADRESSE, DATE_EVENEMENT, LIAISON_MOTIFFIN FROM vip v, liaison l, photo p";
+            sql = sql + " WHERE v.VIP_NUMERO=l.VIP_NUMERO";
+            sql = sql + " AND l.VIP_VIP_NUMERO=" + [numStar];
+            sql = sql + " AND v.VIP_NUMERO = p.VIP_NUMERO";
+            sql = sql + " AND PHOTO_NUMERO = 1)";
             // console.log(sql);
             connexion.query(sql, callback);
             connexion.release();
@@ -80,11 +86,32 @@ module.exports.liaisonVip = function(numStar, callback) {
 module.exports.mariageVIP = function(numStar, callback) {
     db.getConnection(function(err, connexion) {
         if (!err) {
-            let sql = "SELECT substring(VIP_NOM,1,1)AS lettreStar, v.VIP_NUMERO, VIP_NOM, VIP_PRENOM, VIP_TEXTE, PHOTO_NUMERO, PHOTO_ADRESSE, MARIAGE_LIEU, MARIAGE_FIN, DATE_EVENEMENT FROM vip v, mariage m, photo p";
+            let sql = "(SELECT substring(VIP_NOM,1,1)AS lettreStar, v.VIP_NUMERO, VIP_NOM, VIP_PRENOM, VIP_TEXTE, PHOTO_NUMERO, PHOTO_ADRESSE, MARIAGE_LIEU, MARIAGE_FIN, DATE_EVENEMENT FROM vip v, mariage m, photo p";
             sql = sql + " WHERE v.VIP_NUMERO=m.VIP_VIP_NUMERO";
             sql = sql + " AND m.VIP_NUMERO=" + [numStar];
             sql = sql + " AND v.VIP_NUMERO = p.VIP_NUMERO";
-            sql = sql + " AND PHOTO_NUMERO = 1 ";
+            sql = sql + " AND PHOTO_NUMERO = 1)";
+            sql = sql + " UNION";
+            sql = sql + " (SELECT substring(VIP_NOM,1,1)AS lettreStar, v.VIP_NUMERO, VIP_NOM, VIP_PRENOM, VIP_TEXTE, PHOTO_NUMERO, PHOTO_ADRESSE, MARIAGE_LIEU, MARIAGE_FIN, DATE_EVENEMENT FROM vip v, mariage m, photo p";
+            sql = sql + " WHERE v.VIP_NUMERO=m.VIP_NUMERO";
+            sql = sql + " AND m.VIP_VIP_NUMERO=" + [numStar];
+            sql = sql + " AND v.VIP_NUMERO = p.VIP_NUMERO";
+            sql = sql + " AND PHOTO_NUMERO = 1)";
+            // console.log(sql);
+            connexion.query(sql, callback);
+            connexion.release();
+        }
+    });
+};
+
+module.exports.isRealisateur = function(numStar, callback) {
+    db.getConnection(function(err, connexion) {
+        if (!err) {
+            let sql = "SELECT r.VIP_NUMERO, FILM_TITRE, FILM_DATEREALISATION, VIP_SEXE, ROLE_NOM";
+            sql = sql + " FROM realisateur r LEFT JOIN film f ON r.VIP_NUMERO=f.VIP_NUMERO";
+            sql = sql + " JOIN vip v ON r.VIP_NUMERO=v.VIP_NUMERO";
+            sql = sql + " LEFT JOIN joue j ON r.VIP_NUMERO = j.VIP_NUMERO";
+            sql = sql + " WHERE r.VIP_NUMERO = " + [numStar];
             // console.log(sql);
             connexion.query(sql, callback);
             connexion.release();
@@ -96,12 +123,27 @@ module.exports.isActeur = function(numStar, callback) {
     db.getConnection(function(err, connexion) {
         if (!err) {
             let sql = "SELECT substring(VIP_NOM,1,1)AS lettreStar, v.VIP_NUMERO, VIP_NOM, VIP_PRENOM, VIP_TEXTE, PHOTO_NUMERO, PHOTO_ADRESSE,";
-            sql = sql + " 'acteur' AS nom, FILM_TITRE, FILM_DATEREALISATION FROM vip v, joue j, film f, photo p";
+            sql = sql + " 'acteur' AS nom, FILM_TITRE, FILM_DATEREALISATION, ROLE_NOM FROM vip v, joue j, film f, photo p";
             sql = sql + " WHERE j.VIP_NUMERO=" + [numStar];
             sql = sql + " AND v.VIP_NUMERO = p.VIP_NUMERO";
             sql = sql + " AND PHOTO_NUMERO = 1";
             sql = sql + " AND j.FILM_NUMERO = f.FILM_NUMERO";
             sql = sql + " AND f.VIP_NUMERO = v.VIP_NUMERO";
+            sql = sql + " AND NOT(v.VIP_NUMERO = " + [numStar] + ")";
+            // console.log(sql);
+            connexion.query(sql, callback);
+            connexion.release();
+        }
+    });
+};
+
+module.exports.isCouturier = function(numStar, callback) {
+    db.getConnection(function(err, connexion) {
+        if (!err) {
+            let sql = "SELECT c.VIP_NUMERO, DEFILE_LIEU, DEFILE_DATE, VIP_SEXE";
+            sql = sql + " FROM couturier c LEFT JOIN defile d ON c.VIP_NUMERO = d.VIP_NUMERO";
+            sql = sql + " JOIN vip v ON c.VIP_NUMERO = v.VIP_NUMERO";
+            sql = sql + " WHERE c.VIP_NUMERO = " + [numStar];
             // console.log(sql);
             connexion.query(sql, callback);
             connexion.release();

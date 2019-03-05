@@ -12,6 +12,27 @@
     </div>
     
     <div id="professions">
+        <p id="realisateur">
+            {{#if realisateur }}
+                <b>Profession : </b>
+                {{#ifCond info.VIP_SEXE '==' 'M'}}
+                    réalisateur
+                {{else}}
+                    réalisatrice
+                {{/ifCond}}
+                <br>
+                <b>Principal(aux) film(s) : </b>
+                {{#each realisateur}}
+                    {{this.FILM_TITRE}} ({{formatDate this.FILM_DATEREALISATION 'MMMM YYYY' }})
+                    {{#if this.ROLE_NOM}}
+                        joue égament dedans ({{this.ROLE_NOM}})
+                    {{else}}
+                        ne joue pas dedans
+                    {{/if}}
+                    <br>
+                {{/each}}
+            {{/if}}
+        </p>
         <p id="acteur">
             {{#if acteur }}
                 <b>Profession : </b>
@@ -20,17 +41,38 @@
                 {{else}}
                     actrice
                 {{/ifCond}}
+                {{#if realisateur}}
+                    (en plus de ses propres films)
+                {{/if}}
                 <br>
                 <b>Principal(aux) film(s) : </b>
                 {{#each acteur}}
                     {{this.FILM_TITRE}} ({{formatDate this.FILM_DATEREALISATION 'MMMM YYYY' }}) de 
-                    <a class="tooltip" href="">{{this.VIP_PRENOM}} {{this.VIP_NOM}}
+                    <a class="tooltip" href="/repertoire/{{this.lettreStar}}/{{this.VIP_NUMERO}}">
+                        {{this.VIP_PRENOM}} {{this.VIP_NOM}}
                         <span>
                             <img src="/images/vip/{{this.PHOTO_ADRESSE}}" alt="oups">
                             <b>{{this.VIP_PRENOM}} {{this.VIP_NOM}}</b><br>
                             {{this.VIP_TEXTE}}
                         </span>
                     </a>
+                    ({{this.ROLE_NOM}})
+                    <br>
+                {{/each}}
+            {{/if}}
+        </p>
+        <p id="couturier">
+            {{#if couturier }}
+                <b>Profession : </b>
+                {{#ifCond info.VIP_SEXE '==' 'M'}}
+                    couturier
+                {{else}}
+                    couturière
+                {{/ifCond}}
+                <br>
+                <b>Principal(aux) défilé(s) : </b>
+                {{#each couturier}}
+                    {{this.DEFILE_LIEU}} ({{formatDate this.DEFILE_DATE 'MMMM YYYY' }})
                     <br>
                 {{/each}}
             {{/if}}
@@ -42,7 +84,8 @@
                 <b>Principal(aux) défilé(s) : </b>
                 {{#each mannequin}}
                     {{this.DEFILE_LIEU}} ({{formatDate this.DEFILE_DATE 'MMMM YYYY' }}) de 
-                    <a class="tooltip" href="">{{this.VIP_PRENOM}} {{this.VIP_NOM}}
+                    <a class="tooltip" href="/repertoire/{{this.lettreStar}}/{{this.VIP_NUMERO}}">
+                        {{this.VIP_PRENOM}} {{this.VIP_NOM}}
                         <span>
                             <img src="/images/vip/{{this.PHOTO_ADRESSE}}" alt="oups">
                             <b>{{this.VIP_PRENOM}} {{this.VIP_NOM}}</b><br>
@@ -64,7 +107,8 @@
                 <br>
                 <b>Principal(aux) album(s) : </b>
                 {{#each chanteur}}
-                    {{this.ALBUM_TITRE}} ({{formatDate this.ALBUM_DATE 'MMMM YYYY' }}) {{this.MAISONDISQUE_NOM}}
+                    {{this.ALBUM_TITRE}} ({{formatDate this.ALBUM_DATE 'MMMM YYYY' }}) 
+                    {{this.MAISONDISQUE_NOM}}
                     <br>
                 {{/each}}
             {{/if}}
@@ -75,7 +119,8 @@
         {{#if mariages}}
             <p><b>Mariage(s) : </b>
                 {{#each mariages}}
-                    <a class="tooltip" href="">{{this.VIP_PRENOM}} {{this.VIP_NOM}}
+                    <a class="tooltip" href="/repertoire/{{this.lettreStar}}/{{this.VIP_NUMERO}}">
+                        {{this.VIP_PRENOM}} {{this.VIP_NOM}}
                         <span>
                             <img src="/images/vip/{{this.PHOTO_ADRESSE}}" alt="oups">
                             <b>{{this.VIP_PRENOM}} {{this.VIP_NOM}}</b><br>
@@ -96,7 +141,8 @@
         {{#if liaisons}}
             <p><b>liaison(s) : </b>
                 {{#each liaisons}}
-                    <a class="tooltip" href="">{{this.VIP_PRENOM}} {{this.VIP_NOM}}
+                    <a class="tooltip" href="/repertoire/{{this.lettreStar}}/{{this.VIP_NUMERO}}">
+                        {{this.VIP_PRENOM}} {{this.VIP_NOM}}
                         <span>
                             <img src="/images/vip/{{this.PHOTO_ADRESSE}}" alt="oups">
                             <b>{{this.VIP_PRENOM}} {{this.VIP_NOM}}</b><br>
