@@ -185,3 +185,30 @@ module.exports.isChanteur = function(numStar, callback) {
         }
     });
 };
+
+/////////////////////////////////////////A R T I C L E S  V I P\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+module.exports.afficherArticleVip = function(numeroVip,callback) {
+    db.getConnection(function(err, connexion) {
+        if (!err) {
+            let sql = "SELECT VIP_NOM, VIP_PRENOM, v.VIP_NUMERO, ARTICLE_TITRE, ARTICLE_RESUME, ARTICLE_DATE_INSERT";
+            sql = sql + " FROM vip v LEFT JOIN apoursujet a ON v.VIP_NUMERO=a.VIP_NUMERO";
+            sql = sql + " LEFT JOIN article ar ON a.ARTICLE_NUMERO=ar.ARTICLE_NUMERO";
+            sql = sql + " WHERE v.VIP_NUMERO = " + [numeroVip];
+            // console.log(sql);
+            connexion.query(sql, callback);
+            connexion.release();
+        }
+    });
+};
+  
+module.exports.listeVipArticleMain = function(callback) {
+    db.getConnection(function(err, connexion) {
+        if (!err) {
+            let sql = "SELECT VIP_NOM, VIP_PRENOM, VIP_NUMERO FROM vip;";
+            // console.log(sql);
+            connexion.query(sql, callback);
+            connexion.release();
+        }
+    });
+};

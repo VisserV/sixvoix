@@ -81,79 +81,110 @@ a  {
     border-left: 1px white solid;
 }
 
-.starRepertoire {
-    display: inline-block;
-    margin: 30px;
-}
+/* Répertoire */
+    .starRepertoire {
+        display: inline-block;
+        margin: 30px;
+    }
 
-#selectionLettresRepertoire {
-    font-size: 1.6em;
-}
+    #selectionLettresRepertoire {
+        font-size: 1.6em;
+    }
 
-#selectionLettresDetails {
-    text-align: right;
-}
+    #selectionLettresDetails {
+        text-align: right;
+    }
 
-#pageDetails {
-    text-align: left;
-}
+    #pageDetails {
+        text-align: left;
+    }
 
-#photoProfilVip {
-    height: 200px;
-    float: left;
-    margin: 0 6px 0 0;
-}
+    #photoProfilVip {
+        height: 200px;
+        float: left;
+        margin: 0 6px 0 0;
+    }
 
-#descriptionVip {
-    text-align: justify;
-}
+    #descriptionVip {
+        text-align: justify;
+    }
 
-#photosVip {
-    width: 100%;
-    text-align: left;
-    margin-top: 25px;
-}
+    #photosVip {
+        width: 100%;
+        text-align: left;
+        margin-top: 25px;
+    }
 
-.tooltip {
-  text-decoration:none;
-  position:relative;
-}
+    .tooltip {
+    text-decoration:none;
+    position:relative;
+    }
 
-.tooltip span {
-  display:none;
+    .tooltip span {
+    display:none;
 
-  -moz-border-radius:6px;
-  -webkit-border-radius:6px;
-  border-radius:6px;
-  color:black;
-  background:white;
-}
+    -moz-border-radius:6px;
+    -webkit-border-radius:6px;
+    border-radius:6px;
+    color:black;
+    background:white;
+    }
 
-.tooltip span img {
-  float:left;
-  margin:0px 8px 8px 0;
-}
+    .tooltip span img {
+    float:left;
+    margin:0px 8px 8px 0;
+    }
 
-.tooltip img {
-height: 100px;
-}
+    .tooltip img {
+    height: 100px;
+    }
 
-.tooltip span {
-font-weight: normal;
-font-size: 11px;
-}
+    .tooltip span {
+    font-weight: normal;
+    font-size: 11px;
+    }
 
-.tooltip:hover span {
-  display:block;
-  position:absolute;
-  top:0;
-  left:0;
-  z-index:1000;
-  width:650px;
-  min-height:128px;
-  border:1px solid black;
-  margin-top:12px;
-  margin-left:32px;
-  overflow:hidden;
-  padding:8px;
-}
+    .tooltip:hover span {
+    display:block;
+    position:absolute;
+    top:0;
+    left:0;
+    z-index:1000;
+    width:650px;
+    min-height:128px;
+    border:1px solid black;
+    margin-top:12px;
+    margin-left:32px;
+    overflow:hidden;
+    padding:8px;
+    }
+
+/* Article */
+.tableNomVip{
+    width: 10%;
+    float: right;
+    margin-right: 150px;
+  }
+  
+  .tableNomVip table{
+    border-collapse: collapse;
+    border:solid 1px;
+    text-align: center;
+  }
+  
+  .tableNomVip th{
+    border:solid 1px;
+    background-color: black;
+    padding: 10px 75px 0px 75px;
+  }
+  
+  .tableNomVip a{
+    color:black;
+    text-decoration:underline;
+    font-weight: bold;
+    display:block;
+  }
+  
+  .contenuArticle{
+    width: 70%;
+  }
