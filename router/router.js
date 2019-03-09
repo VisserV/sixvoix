@@ -22,10 +22,11 @@ module.exports = function(app){
     app.get('/repertoire/:lettre/:numStar', VipController.DetailStar);
 
 // articles
-    app.get('/articles', ArticlesController.articles)
+    app.get('/articles', ArticlesController.articlesAll);
+    app.get('/articles/:numStar', ArticlesController.articlesVip);
 
- // albums
-   app.get('/album', AlbumController.ListerAlbum);
+// albums
+    app.get('/album', AlbumController.ListerAlbum);
 
 // tout le reste
     app.get('*', HomeController.NotFound);

@@ -160,31 +160,61 @@ a  {
     }
 
 /* Article */
-.tableNomVip{
-    width: 10%;
-    float: right;
-    margin-right: 150px;
-  }
+    .tableNomVip{
+        width: 10%;
+        float: right;
+        margin-right: 150px;
+    }
   
-  .tableNomVip table{
-    border-collapse: collapse;
-    border:solid 1px;
-    text-align: center;
-  }
+    .tableNomVip table{
+        border-collapse: collapse;
+        border:solid 1px;
+        text-align: center;
+    }
   
-  .tableNomVip th{
-    border:solid 1px;
-    background-color: black;
-    padding: 10px 75px 0px 75px;
-  }
-  
-  .tableNomVip a{
-    color:black;
-    text-decoration:underline;
-    font-weight: bold;
-    display:block;
-  }
-  
-  .contenuArticle{
-    width: 70%;
-  }
+    .tableNomVip th{
+        border:solid 1px;
+        background-color: black;
+        padding: 10px 75px 0px 75px;
+    }
+    
+    .tableNomVip a{
+        color:black;
+        text-decoration:underline;
+        font-weight: bold;
+        display:block;
+    }
+    
+    .contenuArticle{
+        width: 70%;
+    }
+
+    fieldset {
+        text-align: justify;
+    }
+
+    .nomVipArticle {
+        text-decoration: underline;
+        font-weight: bold;
+    }
+
+    .basGrisArticle {
+        background-color: #d3d8df;
+    }
+
+    .basGrisArticle a {
+        color: black;
+        float: right; 
+        text-decoration: underline;
+    }
+
+    #textPasDArticle {
+        display: inline-block;
+    }
+
+    #imgPasDArticle {
+        max-height: 150px; 
+        display: inline-block; 
+        vertical-align:middle; 
+        margin-left:150px;
+    }
