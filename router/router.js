@@ -27,6 +27,7 @@ module.exports = function(app){
 
 // albums
     app.get('/album', AlbumController.ListerAlbum);
+    app.get('/album/:numStar', AlbumController.ListerAlbum);
 
 // tout le reste
     app.get('*', HomeController.NotFound);

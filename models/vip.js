@@ -188,13 +188,13 @@ module.exports.isChanteur = function(numStar, callback) {
 
 /////////////////////////////////////////A R T I C L E S  V I P\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
-module.exports.afficherArticleVip = function(numeroVip,callback) {
+module.exports.afficherArticleVip = function(numStar,callback) {
     db.getConnection(function(err, connexion) {
         if (!err) {
             let sql =   "SELECT VIP_NOM, VIP_PRENOM, v.VIP_NUMERO, ARTICLE_TITRE, ARTICLE_RESUME, ARTICLE_DATE_INSERT";
             sql = sql + " FROM vip v LEFT JOIN apoursujet a ON v.VIP_NUMERO=a.VIP_NUMERO";
             sql = sql + " LEFT JOIN article ar ON a.ARTICLE_NUMERO=ar.ARTICLE_NUMERO";
-            sql = sql + " WHERE v.VIP_NUMERO = " + [numeroVip];
+            sql = sql + " WHERE v.VIP_NUMERO = " + [numStar];
             // console.log(sql);
             connexion.query(sql, callback);
             connexion.release();
@@ -207,6 +207,33 @@ module.exports.listeVipArticle = function(callback) {
         if (!err) {
             let sql =   "SELECT VIP_NOM, VIP_PRENOM, VIP_NUMERO FROM vip";
             sql = sql + " ORDER BY VIP_NOM";
+            // console.log(sql);
+            connexion.query(sql, callback);
+            connexion.release();
+        }
+    });
+};
+
+///////////////////////////////////////// A L B U M   D E S    S T A R S \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+module.exports.listePhotosPrincipales = function(callback) {
+    db.getConnection(function(err, connexion) {
+        if (!err) {
+            let sql =   "SELECT v.VIP_NUMERO, VIP_NOM, VIP_PRENOM, PHOTO_ADRESSE";
+            sql = sql + " FROM vip v JOIN photo p ON v.VIP_NUMERO = p.VIP_NUMERO WHERE PHOTO_NUMERO = 1";
+            // console.log(sql);
+            connexion.query(sql, callback);
+            connexion.release();
+        }
+    });
+};
+
+module.exports.commentairePhotos = function(numStar, callback) {
+    db.getConnection(function(err, connexion) {
+        if (!err) {
+            let sql =   "SELECT PHOTO_COMMENTAIRE, PHOTO_ADRESSE, VIP_NOM, VIP_PRENOM, v.VIP_NUMERO";
+            sql = sql + " FROM vip v JOIN photo p ON v.VIP_NUMERO = p.VIP_NUMERO";
+            sql = sql + " WHERE v.VIP_NUMERO = " + [numStar];
             // console.log(sql);
             connexion.query(sql, callback);
             connexion.release();
