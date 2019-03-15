@@ -1,6 +1,8 @@
 # Les lignes commençant par '#' sont des commentaires.
 # Ignorer tous les fichiers nommés *.*~
 *.*~
-package-lock.json
+cote_client/package-lock.json
+cote_admin/package-lock.json
 # Ignorer tous le repertoire node_modules
-node_modules/*
+cote_client/node_modules/*
+cote_admin/node_modules/*
