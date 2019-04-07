@@ -82,3 +82,11 @@ a  {
     border-left: 1px white solid;
 }
 
+#decoBtn {
+    position: relative;
+    padding: 10px 20px;
+    margin-left: 80%;
+    text-decoration:none;
+    color: white;
+    border: 1px solid white;
+  }

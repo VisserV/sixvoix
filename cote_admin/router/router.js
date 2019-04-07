@@ -1,4 +1,5 @@
 let ConnexionController = require('./../controllers/ConnexionController');
+let HomeController = require('./../controllers/HomeController');
 
 
 
@@ -6,11 +7,16 @@ let ConnexionController = require('./../controllers/ConnexionController');
 module.exports = function(app){
 
 // Main Routes
-    app.get('/', ConnexionController.Index);
-    app.get('/connexion', ConnexionController.Index);
+    app.get('/', HomeController.Index);
+    app.get('/Home', HomeController.Index);
+
+//Connexion
+    app.post('/Connexion', ConnexionController.Connexion);
+    app.get('/PageConnexion', ConnexionController.testConnexion);
+    app.get('/Deconnexion', ConnexionController.Deconnexion);
 
 // tout le reste
-    app.get('*', ConnexionController.NotFound);
-    app.post('*', ConnexionController.NotFound);
+    app.get('*', HomeController.NotFound);
+    app.post('*', HomeController.NotFound);
 
 };
