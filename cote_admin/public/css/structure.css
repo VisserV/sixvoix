@@ -138,3 +138,16 @@ a  {
 .traitHorizontal {
     border-top: 1px solid white;
 }
+
+.adminVips table {
+    text-align: left;
+    padding: 50px;
+}
+
+.adminVips th, .adminVips td {
+    padding: 5px;
+}
+
+legend{
+    text-align: left;
+}
